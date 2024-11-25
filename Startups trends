@@ -1,6 +1,59 @@
-Trendy v startpoch
-Codeacademy project
-Jazyk SQL - dopyty, agregované funkcie, triedenie, informácie o firmách
-Celkový prehľad o tabuľke
+# Trendy v startpoch
+
+# prehľad tauľky a #tĺpcov
 select*
+from startups;
+
+# celkový počet firiem v tabuľke
+select count(*)
+from startups;
+
+# celková hodnota firiem
+select sum(valuation)
+from startups;
+
+# najvyššia suma pre startup
+select max(raised)
+from startups;
+
+# to isté pre startupy v stage "seed"
+select max(raised)
 from startups
+where stage = "Seed";
+
+# najstaršia firma v tabuľke
+select min(founded)
+from startups;
+# zistenie informácií pre rôzne sektory:
+# priemerná hodnota pre sektor
+select avg(valuation)
+from startups
+group by category;
+# zokrúhlenie na 2 desatinné meista a triedenie
+
+select  category, round( avg(valuation), 2)
+from startups
+group by 1
+order by 2 desc;
+# najkokurenčnejšie trhy 
+# počet firiem v každej kategórií
+
+SELECT category, COUNT(*)
+FROM startups
+# kategórie, ktoré majú aspoň 3 firmy
+
+GROUP BY category
+having count(*)>3
+order by 2 desc
+
+# rozdiely v oveľkosti v jednotlivých lokáciích
+# priemerná veľkosť startupu podľa počtu zamestnancov
+SELECT location, AVG(employees)
+FROM startups
+GROUP BY location;
+
+# priemerná veľkost v jednotlivých lokalitách na 500 zamestnancov
+SELECT location, AVG(employees)
+FROM startups
+GROUP BY location
+HAVING AVG(employees) > 500;
